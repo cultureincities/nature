@@ -79,7 +79,7 @@
         </div>
         <div class="mask w-slider-mask">
 
-          <!-- div for the slide container  -->
+          <!-- div for the slide container - replace in new webflow file -->
           <div class="slide w-slide">
             <h1 class="hero-h4">Map of Nature in LDN</h1>
 
@@ -122,8 +122,8 @@
                           'type': 'fill',
                           'source': 'states',
                           'paint': {
-                          'fill-color': 'rgba(200, 100, 240, 0.4)',
-                          'fill-outline-color': 'rgba(200, 100, 240, 1)'
+                          'fill-color': 'rgba(31, 100, 100, 1)',
+                          'fill-outline-color': 'rgba(155, 100, 75, 1)'
                           } 
                         });
                         
@@ -132,7 +132,7 @@
                         map.on('click', 'states-layer', function(e) {
                           new mapboxgl.Popup()
                           .setLngLat(e.lngLat)
-                          .setHTML(e.crs[0].properties.name)
+                          .setHTML(e.features[0].properties.name)
                           .addTo(map);
                         });
                         

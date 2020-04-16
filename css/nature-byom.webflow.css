@@ -1237,7 +1237,7 @@ p {
   }
   .map {
     width: 80%;
-    margin-left: 10%;
+    margin-left: 5%;
   }
   .overlay {
     background-image: -webkit-gradient(linear, left top, right top, color-stop(5%, #fdb4d4), color-stop(10%, transparent), color-stop(90%, transparent), color-stop(95%, #c4d4ef));
@@ -1293,7 +1293,7 @@ p {
   }
   .map {
     width: 80%;
-    margin-left: 10%;
+    margin-left: 5%;
   }
   .menu-button {
     overflow: hidden;
@@ -1442,7 +1442,7 @@ p {
   }
   .map {
     width: 80%;
-    margin-left: 10%;
+    margin-left: 5%;
   }
   .search-container {
     display: none;

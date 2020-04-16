@@ -119,81 +119,204 @@
                   <!-- the div container for the slider -->
                   <div class="slide w-slide">
 
-                        <h1 class="hero-h4">Map of Nature in LDN</h1>
+                    <h1 class="hero-h4">Map of Nature in LDN</h1>
                         
-                              <!-- --- BEGINNNING of div container for the map--- -->
-                              <div class="map">
-                                    <!-- <div class="w-embed w-script"> -->
+                        <!-- --- BEGINNNING of div container for the map--- -->
+                        <div class="map">
+                        <!-- <div class="w-embed w-script"> -->
 
-                                      <!-- style the pop up -->
-                                      <style>
-                                        .mapboxgl-popup {
-                                          max-width: 400px;
-                                          font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-                                        }
-                                      </style>
+                          <!-- style the pop up -->
+                          <style>
+                            .mapboxgl-popup {
+                              max-width: 400px;
+                              font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                            }
+                          </style>
 
-                                      <!-- the mapbox div for the map -->
-                                      <div id="map" class="map">
-                                        
-                                      </div>
-                                      <!-- the javascript for mapbox -->
-                                      <script>
-                                        mapboxgl.accessToken = 'pk.eyJ1IjoidmlzaGFsa3VtYXJsb25kb24iLCJhIjoiY2pmZHVmdG84MXM1YTJxbXM2d3RmbnBnNSJ9.bYO0LW7BJr8pzbYThWOrdw';
-                    
-                                        var map = new mapboxgl.Map({
-                                            container: 'map', // container id
-                                            style: 'mapbox://styles/vishalkumarlondon/ck8ubhqqz178g1ipmslu5bpd4', // stylesheet location
-                                            center: [-0.1, 51.5074], // starting position [lng, lat]
-                                            zoom: 9 // starting zoom
-                                         });
-                    
-                                         map.on('load', function() {
-                                            // Add a source for the state polygons.
-                                            map.addSource('states', {
-                                              'type': 'geojson',
-                                              'data': 'http://cultureincities.com/nature/data/GS_London/gs_london.geojson'
-                                              // 'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson'
-                                            });
-                                            
-                                            // Add a layer showing the state polygons.
-                                            map.addLayer({
-                                              'id': 'states-layer',
-                                              'type': 'fill',
-                                              'source': 'states',
-                                              'paint': {
-                                              'fill-color': 'rgba(31, 100, 100, 1)',
-                                              'fill-outline-color': 'rgba(155, 100, 75, 1)'
-                                              } 
-                                            });
-                                            
-                                            // When a click event occurs on a feature in the states layer, open a popup at the
-                                            // location of the click, with description HTML from its properties.
-                                            map.on('click', 'states-layer', function(e) {
-                                              new mapboxgl.Popup()
-                                              .setLngLat(e.lngLat)
-                                              .setHTML(e.features[0].properties.name)
-                                              .addTo(map);
-                                            });
-                                            
-                                            // Change the cursor to a pointer when the mouse is over the states layer.
-                                            map.on('mouseenter', 'states-layer', function() {
-                                              map.getCanvas().style.cursor = 'pointer';
-                                            });
-                                            
-                                            // Change it back to a pointer when it leaves.
-                                            map.on('mouseleave', 'states-layer', function() {
-                                              map.getCanvas().style.cursor = '';
-                                            });
-                                          });   
-                                      
-                                      </script>
-                                    <!-- </div>       -->
-                            </div>
-                            <!-- --- END of div container for the map--- -->
+                          <!-- the mapbox div for the map -->
+                          <!-- <div id="map" class="map"> -->
+                          <div id="map"> </div>
+
+                          
+                          <!-- button for fly -->
+                          <br />
+                          <button id="fly">Fly</button>
+
+
+                          <!-- the javascript for mapbox -->
+                          <script>
+                            mapboxgl.accessToken = 'pk.eyJ1IjoidmlzaGFsa3VtYXJsb25kb24iLCJhIjoiY2pmZHVmdG84MXM1YTJxbXM2d3RmbnBnNSJ9.bYO0LW7BJr8pzbYThWOrdw';
+        
+                            var map = new mapboxgl.Map({
+                                container: 'map', // container id
+                                style: 'mapbox://styles/vishalkumarlondon/ck8ubhqqz178g1ipmslu5bpd4', // stylesheet location
+                                center: [-0.1, 51.5074], // starting position [lng, lat]
+                                zoom: 9 // starting zoom
+                              });
+        
+                            map.on('load', function() {
+                              // Add a source for the state polygons.
+                              map.addSource('states', {
+                                'type': 'geojson',
+                                'data': 'http://cultureincities.com/nature/data/GS_London/gs_london.geojson'
+                              });
+                              
+                            // Add a layer showing the state polygons.
+                            map.addLayer({
+                              'id': 'states-layer',
+                              'type': 'fill',
+                              'source': 'states',
+                              'paint': {
+                              'fill-color': 'rgba(31, 100, 100, 1)',
+                              'fill-outline-color': 'rgba(155, 100, 75, 1)'
+                              } 
+                            });
+                                
+                            // When a click event occurs on a feature in the states layer, open a popup at the
+                            // location of the click, with description HTML from its properties.
+                            map.on('click', 'states-layer', function(e) {
+                              new mapboxgl.Popup()
+                              .setLngLat(e.lngLat)
+                              .setHTML(e.features[0].properties.name)
+                              .addTo(map);
+                            });
+                          
+                            // Change the cursor to a pointer when the mouse is over the states layer.
+                            map.on('mouseenter', 'states-layer', function() {
+                              map.getCanvas().style.cursor = 'pointer';
+                            });
+                            
+                            // Change it back to a pointer when it leaves.
+                            map.on('mouseleave', 'states-layer', function() {
+                                map.getCanvas().style.cursor = '';
+                              });
+                            });   
+
+                            var chapters = {
+                              'baker': {
+                              bearing: 27,
+                              center: [-0.15591514, 51.51830379],
+                              zoom: 15.5,
+                              pitch: 20
+                              },
+                              'aldgate': {
+                              duration: 6000,
+                              center: [-0.07571203, 51.51424049],
+                              bearing: 150,
+                              zoom: 15,
+                              pitch: 0
+                              },
+                              'london-bridge': {
+                              bearing: 90,
+                              center: [-0.08533793, 51.50438536],
+                              zoom: 13,
+                              speed: 0.6,
+                              pitch: 40
+                              },
+                              'woolwich': {
+                              bearing: 90,
+                              center: [0.05991101, 51.48752939],
+                              zoom: 12.3
+                              },
+                              'gloucester': {
+                              bearing: 45,
+                              center: [-0.18335806, 51.49439521],
+                              zoom: 15.3,
+                              pitch: 20,
+                              speed: 0.5
+                              },
+                              'caulfield-gardens': {
+                              bearing: 180,
+                              center: [-0.19684993, 51.5033856],
+                              zoom: 12.3
+                              },
+                              'telegraph': {
+                              bearing: 90,
+                              center: [-0.10669358, 51.51433123],
+                              zoom: 17.3,
+                              pitch: 40
+                              },
+                              'charing-cross': {
+                              bearing: 90,
+                              center: [-0.12416858, 51.50779757],
+                              zoom: 14.3,
+                              pitch: 20
+                              }
+                            };
+
+                            var chapterNames = Object.keys(chapters);
+                            
+                            var cities = {
+                              'type': 'FeatureCollection',
+                              'features': [
+                              {
+                              'type': 'Feature',
+                              'properties': {},
+                              'geometry': {
+                              'type': 'Point',
+                              'coordinates': [-0.15591514, 51.51830379]
+                              }
+                              },
+                              {
+                              'type': 'Feature',
+                              'properties': {},
+                              'geometry': {
+                              'type': 'Point',
+                              'coordinates': [-0.07571203, 51.51424049]
+                              }
+                              },
+                              {
+                              'type': 'Feature',
+                              'properties': {},
+                              'geometry': {
+                              'type': 'Point',
+                              'coordinates': [-0.08533793, 51.50438536]
+                              }
+                              },
+                              {
+                              'type': 'Feature',
+                              'properties': {},
+                              'geometry': {
+                              'type': 'Point',
+                              'coordinates': [0.05991101, 51.48752939]
+                              }
+                              },
+                              {
+                              'type': 'Feature',
+                              'properties': {},
+                              'geometry': {
+                              'type': 'Point',
+                              'coordinates': [-0.18335806, 51.49439521]
+                              }
+                              },
+                              {
+                              'type': 'Feature',
+                              'properties': {},
+                              'geometry': {
+                              'type': 'Point',
+                              'coordinates': [-0.19684993, 51.5033856]
+                              }
+                              }
+                              ]
+                              };
+
+
+                            document.getElementById('fly').addEventListener('click', function() {
+                              cities.features.forEach(function(city, index) {
+                                setTimeout(function() {
+                                  map.flyTo({ center: city.geometry.coordinates, zoom: 12, easing(t) { return t; }, curve: 1 }); }, 
+                                  4000 * index);
+                                });
+                              });
+                          
+                          </script>
+                        <!-- </div> -->
+                        </div>
+                        <!-- --- END of div container for the map--- -->
 
                     </div>
                     <!-- end -->
+
 
                 </div>
               <!-- 2. END of the mask container for the map -->

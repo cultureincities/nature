@@ -776,7 +776,7 @@ p {
   display: flex;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: 90%;
   padding-bottom: 5vw;
   padding-left: 2.5vw;
   -webkit-box-orient: vertical;

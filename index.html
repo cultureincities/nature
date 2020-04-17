@@ -57,323 +57,300 @@
 <!-- the body -->
 <body class="body">
 
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css"/>
+  <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
   <!-- ---------- BEGINNNING of hero div ----------  -->
   <div class="hero">
 
-        <!-- NOT TOO SURE WHAT THIS DIV IS -->
-        <div class="w-embed">
-                <style>
-                    .w-slider-dot {
-                        width: 10px;
-                        height: 10px;
-                        background-color: rgba(28, 58, 107, 0);
-                        border: 2px solid rgba(28, 58, 107, 1);
-                        border-radius: 100px;
-                        transition-property: all;
-                        transition-duration: 200ms;
-                        transition-timing-function: ease;
-                        transition-delay: 0s;
-                    }
-                    .w-slider-dot.w-active {
-                        width: 30px;
-                        height: 30px;
-                        background-color: rgba(28, 58, 107, 1);
-                        border: 2px solid rgba(28, 58, 107, 1);
-                        border-radius: 100px;
-                        transition-property: all;
-                        transition-duration: 200ms;
-                        transition-timing-function: ease;
-                        transition-delay: 0s;
-                      }
-                    .overlay {
-                        pointer-events: none;
-                      }
-                    .hero-h4 {
-                        writing-mode: vertical-lr;
-                      }               
-                </style>
-          </div>
+  <!-- NOT TOO SURE WHAT THIS DIV IS -->
+  <div class="w-embed">
+          <style>
+              .w-slider-dot {
+                  width: 10px;
+                  height: 10px;
+                  background-color: rgba(28, 58, 107, 0);
+                  border: 2px solid rgba(28, 58, 107, 1);
+                  border-radius: 100px;
+                  transition-property: all;
+                  transition-duration: 200ms;
+                  transition-timing-function: ease;
+                  transition-delay: 0s;
+              }
+              .w-slider-dot.w-active {
+                  width: 30px;
+                  height: 30px;
+                  background-color: rgba(28, 58, 107, 1);
+                  border: 2px solid rgba(28, 58, 107, 1);
+                  border-radius: 100px;
+                  transition-property: all;
+                  transition-duration: 200ms;
+                  transition-timing-function: ease;
+                  transition-delay: 0s;
+                }
+              .overlay {
+                  pointer-events: none;
+                }
+              .hero-h4 {
+                  writing-mode: vertical-lr;
+                }               
+          </style>
+    </div>
 
     <!-- ---------- BEGINNING of slider containner ----------  -->
     <div class="slider-container">
 
-      <!-- ---------- BEGINNING of hero slider container ----------  -->
-      <div data-delay="4000" data-animation="slide" data-autoplay="1" data-nav-spacing="2" data-duration="1000" data-infinite="1" class="hero-slider w-slider">
+    <!-- ---------- BEGINNING of hero slider container ----------  -->
+    <div data-delay="4000" data-animation="slide" data-autoplay="1" data-nav-spacing="2" data-duration="1000" data-infinite="1" class="hero-slider w-slider">
 
-              <!-- 1. NAVIGATION -->
-              <div data-collapse="medium" data-animation="default" data-duration="400" class="navbar w-nav">
-                <a href="#" class="brand w-nav-brand">
-                  <div class="h1 nav-logo">nature map</div>
-                </a>
-                <div class="container w-container"></div>
-              </div>
+    <!-- 1. NAVIGATION -->
+    <div data-collapse="medium" data-animation="default" data-duration="400" class="navbar w-nav">
+      <a href="#" class="brand w-nav-brand">
+        <div class="h1 nav-logo">nature map</div>
+      </a>
+      <div class="container w-container"></div>
+    </div>
 
 
-              <!-- ***************************************** -->
-              <!-- COPY AND PASTE ALL OF THIS INTO NEW DESIGNS -->
-              <!-- ***************************************** -->
+      <!-- ***************************************** -->
+      <!-- COPY AND PASTE ALL OF THIS INTO NEW DESIGNS -->
+      <!-- ***************************************** -->
 
-              <!-- 2. BEGINNNING of the mask container for the map -->
-                <div class="mask w-slider-mask">
+      <!-- 2. BEGINNNING of the mask container for the map -->
+        <div class="mask w-slider-mask">
+          
+          <!-- the div container for the slider -->
+          <div class="slide w-slide">
+
+            <h1 class="hero-h4">Map of Nature in LDN</h1>
+                
+            <!-- --- BEGINNNING of div container for the map--- -->
+            <div class="map">
+            <!-- <div class="w-embed w-script"> -->
+
+              <!-- style the pop up -->
+              <style>
+                .mapboxgl-popup {
+                  max-width: 400px;
+                  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                }
+              </style>
+
+              <!-- the mapbox div for the map -->
+              <!-- <div id="map" class="map"> -->
+              <div id="map"> </div>
+
+              
+              <!-- button for fly -->
+              <br />
+              <button id="fly">Fly</button>
+
+
+              <!-- the javascript for mapbox -->
+              <script>
+                mapboxgl.accessToken = 'pk.eyJ1IjoidmlzaGFsa3VtYXJsb25kb24iLCJhIjoiY2pmZHVmdG84MXM1YTJxbXM2d3RmbnBnNSJ9.bYO0LW7BJr8pzbYThWOrdw';
+
+                var map = new mapboxgl.Map({
+                    container: 'map', // container id
+                    style: 'mapbox://styles/vishalkumarlondon/ck8ubhqqz178g1ipmslu5bpd4', // stylesheet location
+                    center: [-0.1, 51.5074], // starting position [lng, lat]
+                    zoom: 9 // starting zoom
+                  });
+
+                map.on('load', function() {
+                  // Add a source for the state polygons.
+                  map.addSource('states', {
+                    'type': 'geojson',
+                    'data': 'http://cultureincities.com/nature/data/GS_London/gs_london.geojson'
+                  });
                   
-                  <!-- the div container for the slider -->
-                  <div class="slide w-slide">
+                // Add a layer showing the state polygons.
+                map.addLayer({
+                  'id': 'states-layer',
+                  'type': 'fill',
+                  'source': 'states',
+                  'paint': {
+                  'fill-color': 'rgba(31, 100, 100, 1)',
+                  'fill-outline-color': 'rgba(155, 100, 75, 1)'
+                  } 
+                });
+                    
+                // When a click event occurs on a feature in the states layer, open a popup at the
+                // location of the click, with description HTML from its properties.
+                map.on('click', 'states-layer', function(e) {
+                  new mapboxgl.Popup()
+                  .setLngLat(e.lngLat)
+                  .setHTML(e.features[0].properties.name)
+                  .addTo(map);
+                });
+              
+                // Change the cursor to a pointer when the mouse is over the states layer.
+                map.on('mouseenter', 'states-layer', function() {
+                  map.getCanvas().style.cursor = 'pointer';
+                });
+                
+                // Change it back to a pointer when it leaves.
+                map.on('mouseleave', 'states-layer', function() {
+                    map.getCanvas().style.cursor = '';
+                  });
+                });   
 
-                    <h1 class="hero-h4">Map of Nature in LDN</h1>
-                        
-                        <!-- --- BEGINNNING of div container for the map--- -->
-                        <div class="map">
-                        <!-- <div class="w-embed w-script"> -->
-
-                          <!-- style the pop up -->
-                          <style>
-                            .mapboxgl-popup {
-                              max-width: 400px;
-                              font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-                            }
-                          </style>
-
-                          <!-- the mapbox div for the map -->
-                          <!-- <div id="map" class="map"> -->
-                          <div id="map"> </div>
-
-                          
-                          <!-- button for fly -->
-                          <br />
-                          <button id="fly">Fly</button>
-
-
-                          <!-- the javascript for mapbox -->
-                          <script>
-                            mapboxgl.accessToken = 'pk.eyJ1IjoidmlzaGFsa3VtYXJsb25kb24iLCJhIjoiY2pmZHVmdG84MXM1YTJxbXM2d3RmbnBnNSJ9.bYO0LW7BJr8pzbYThWOrdw';
-        
-                            var map = new mapboxgl.Map({
-                                container: 'map', // container id
-                                style: 'mapbox://styles/vishalkumarlondon/ck8ubhqqz178g1ipmslu5bpd4', // stylesheet location
-                                center: [-0.1, 51.5074], // starting position [lng, lat]
-                                zoom: 9 // starting zoom
-                              });
-        
-                            map.on('load', function() {
-                              // Add a source for the state polygons.
-                              map.addSource('states', {
-                                'type': 'geojson',
-                                'data': 'http://cultureincities.com/nature/data/GS_London/gs_london.geojson'
-                              });
-                              
-                            // Add a layer showing the state polygons.
-                            map.addLayer({
-                              'id': 'states-layer',
-                              'type': 'fill',
-                              'source': 'states',
-                              'paint': {
-                              'fill-color': 'rgba(31, 100, 100, 1)',
-                              'fill-outline-color': 'rgba(155, 100, 75, 1)'
-                              } 
-                            });
-                                
-                            // When a click event occurs on a feature in the states layer, open a popup at the
-                            // location of the click, with description HTML from its properties.
-                            map.on('click', 'states-layer', function(e) {
-                              new mapboxgl.Popup()
-                              .setLngLat(e.lngLat)
-                              .setHTML(e.features[0].properties.name)
-                              .addTo(map);
-                            });
-                          
-                            // Change the cursor to a pointer when the mouse is over the states layer.
-                            map.on('mouseenter', 'states-layer', function() {
-                              map.getCanvas().style.cursor = 'pointer';
-                            });
-                            
-                            // Change it back to a pointer when it leaves.
-                            map.on('mouseleave', 'states-layer', function() {
-                                map.getCanvas().style.cursor = '';
-                              });
-                            });   
-
-                            var chapters = {
-                              'baker': {
-                              bearing: 27,
-                              center: [-0.15591514, 51.51830379],
-                              zoom: 15.5,
-                              pitch: 20
-                              },
-                              'aldgate': {
-                              duration: 6000,
-                              center: [-0.07571203, 51.51424049],
-                              bearing: 150,
-                              zoom: 15,
-                              pitch: 0
-                              },
-                              'london-bridge': {
-                              bearing: 90,
-                              center: [-0.08533793, 51.50438536],
-                              zoom: 13,
-                              speed: 0.6,
-                              pitch: 40
-                              },
-                              'woolwich': {
-                              bearing: 90,
-                              center: [0.05991101, 51.48752939],
-                              zoom: 12.3
-                              },
-                              'gloucester': {
-                              bearing: 45,
-                              center: [-0.18335806, 51.49439521],
-                              zoom: 15.3,
-                              pitch: 20,
-                              speed: 0.5
-                              },
-                              'caulfield-gardens': {
-                              bearing: 180,
-                              center: [-0.19684993, 51.5033856],
-                              zoom: 12.3
-                              },
-                              'telegraph': {
-                              bearing: 90,
-                              center: [-0.10669358, 51.51433123],
-                              zoom: 17.3,
-                              pitch: 40
-                              },
-                              'charing-cross': {
-                              bearing: 90,
-                              center: [-0.12416858, 51.50779757],
-                              zoom: 14.3,
-                              pitch: 20
-                              }
-                            };
-
-                            var chapterNames = Object.keys(chapters);
-                            
-                            var cities = {
-                              'type': 'FeatureCollection',
-                              'features': [
-                              {
-                              'type': 'Feature',
-                              'properties': {},
-                              'geometry': {
-                              'type': 'Point',
-                              'coordinates': [-0.15591514, 51.51830379]
-                              }
-                              },
-                              {
-                              'type': 'Feature',
-                              'properties': {},
-                              'geometry': {
-                              'type': 'Point',
-                              'coordinates': [-0.07571203, 51.51424049]
-                              }
-                              },
-                              {
-                              'type': 'Feature',
-                              'properties': {},
-                              'geometry': {
-                              'type': 'Point',
-                              'coordinates': [-0.08533793, 51.50438536]
-                              }
-                              },
-                              {
-                              'type': 'Feature',
-                              'properties': {},
-                              'geometry': {
-                              'type': 'Point',
-                              'coordinates': [0.05991101, 51.48752939]
-                              }
-                              },
-                              {
-                              'type': 'Feature',
-                              'properties': {},
-                              'geometry': {
-                              'type': 'Point',
-                              'coordinates': [-0.18335806, 51.49439521]
-                              }
-                              },
-                              {
-                              'type': 'Feature',
-                              'properties': {},
-                              'geometry': {
-                              'type': 'Point',
-                              'coordinates': [-0.19684993, 51.5033856]
-                              }
-                              }
-                              ]
-                              };
+                var chapters = {
+                  'baker': {
+                  bearing: 27,
+                  center: [-0.15591514, 51.51830379],
+                  zoom: 15.5,
+                  pitch: 20
+                  },
+                  'aldgate': {
+                  duration: 6000,
+                  center: [-0.07571203, 51.51424049],
+                  bearing: 150,
+                  zoom: 15,
+                  pitch: 0
+                  },
+                  'london-bridge': {
+                  bearing: 90,
+                  center: [-0.08533793, 51.50438536],
+                  zoom: 13,
+                  speed: 0.6,
+                  pitch: 40
+                  },
+                  'woolwich': {
+                  bearing: 90,
+                  center: [0.05991101, 51.48752939],
+                  zoom: 12.3
+                  },
+                  'gloucester': {
+                  bearing: 45,
+                  center: [-0.18335806, 51.49439521],
+                  zoom: 15.3,
+                  pitch: 20,
+                  speed: 0.5
+                  },
+                  'caulfield-gardens': {
+                  bearing: 180,
+                  center: [-0.19684993, 51.5033856],
+                  zoom: 12.3
+                  },
+                  'telegraph': {
+                  bearing: 90,
+                  center: [-0.10669358, 51.51433123],
+                  zoom: 17.3,
+                  pitch: 40
+                  },
+                  'charing-cross': {
+                  bearing: 90,
+                  center: [-0.12416858, 51.50779757],
+                  zoom: 14.3,
+                  pitch: 20
+                  }
+                };
 
 
-                            document.getElementById('fly').addEventListener('click', function() {
-                              cities.features.forEach(function(city, index) {
-                                setTimeout(function() {
-                                  map.flyTo({ center: city.geometry.coordinates, zoom: 12, easing(t) { return t; }, curve: 1 }); }, 
-                                  4000 * index);
-                                });
-                              });
-                          
-                          </script>
-                        <!-- </div> -->
-                        </div>
-                        <!-- --- END of div container for the map--- -->
+                document.getElementById('fly').addEventListener('click', function() {
+                  // cities.features.forEach(function(city, index) {
+                  //   setTimeout(function() {
+                  //     map.flyTo({ center: city.geometry.coordinates, zoom: 12, easing(t) { return t; }, curve: 1 }); }, 
+                  //     4000 * index);
+                  //   });
+                  var chapterNames = Object.keys(chapters);
+                    for (var i = 0; i < chapterNames.length; i++) {
+                    var chapterName = chapterNames[i];
+                      }
 
-                    </div>
-                    <!-- end -->
-
-
-                </div>
-              <!-- 2. END of the mask container for the map -->
-
-              <!-- ***************************************** -->
-              <!-- COPY AND PASTE ALL OF THIS INTO NEW DESIGNS -->
-              <!-- ***************************************** -->
-
-
-          <!-- 3. SOMETHING ABOUT ARROWS??? -->
-          <!-- <div class="left-arrow w-slider-arrow-left">
-            <div class="fontawesome"></div>
-          </div>
-          <div class="right-arrow w-slider-arrow-right">
-            <div class="fontawesome"></div>
-          </div> -->
+                      map.flyTo(chapters[chapterName]);
+                  });
 
 
 
-          <!-- 4. ruler line on the left -->
-          <div class="rule"></div>
-
-          <!-- 5. div for the scroller -->
-          <div class="scroll-indicator-container">
-            <a href="#" class="scroll-indicator w-inline-block">
-              <div style="-webkit-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="scroll"></div>
-            </a>
-          </div>
-
-          <!-- 6. div for the dropdown menu scroller -->
-          <div class="menu-block-primary">
-            <div class="menu-padding">
-              <div class="menu-link-container-2"><a href="#" class="menu-link-2">Home</a>
-                <p class="paragraph-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
-                <div class="fontawesome-close-menu-2"></div>
-              </div>
+                  var geocoder = new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    flyTo: {
+                      bearing: 0,
+                      // These options control the flight curve, making it move
+                      // slowly and zoom out almost completely before starting
+                      // to pan.
+                      speed: 0.5, // make the flying slow
+                      curve: 1, // change the speed at which it zooms out
+                      // This can be any easing function: it takes a number between
+                      // 0 and 1 and returns another number between 0 and 1.
+                      easing: function(t) {
+                        return t;
+                        }
+                    },
+                    mapboxgl: mapboxgl
+                    });
+                  map.addControl(geocoder);
+              
+              </script>
+            <!-- </div> -->
             </div>
-          </div>
+            <!-- --- END of div container for the map--- -->
 
-          <!-- 7. div for the menu button in the top right -->
-          <div class="menu-button-2 w-clearfix">
-            <div data-w-id="d6423925-a05c-97f6-5547-12e94beeba4a" class="line-1-2"></div>
-            <div data-w-id="d6423925-a05c-97f6-5547-12e94beeba4b" class="line-2-2"></div>
-            <div data-w-id="d6423925-a05c-97f6-5547-12e94beeba4c" class="line-3-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-            <div class="menu-block-2"></div>
-          </div>
+            </div>
+            <!-- end -->
 
-        <!-- 8. div for the dropdown menu scroller -->
-        <!-- <div class="slide-nav w-slider-nav"></div> -->
+
+        </div>
+      <!-- 2. END of the mask container for the map -->
+
+      <!-- ***************************************** -->
+      <!-- COPY AND PASTE ALL OF THIS INTO NEW DESIGNS -->
+      <!-- ***************************************** -->
+
+
+      <!-- 3. SOMETHING ABOUT ARROWS??? -->
+      <!-- <div class="left-arrow w-slider-arrow-left">
+        <div class="fontawesome"></div>
+      </div>
+      <div class="right-arrow w-slider-arrow-right">
+        <div class="fontawesome"></div>
+      </div> -->
+
+
+
+      <!-- 4. ruler line on the left -->
+      <div class="rule"></div>
+
+      <!-- 5. div for the scroller -->
+      <div class="scroll-indicator-container">
+        <a href="#" class="scroll-indicator w-inline-block">
+          <div style="-webkit-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="scroll"></div>
+        </a>
+      </div>
+
+      <!-- 6. div for the dropdown menu scroller -->
+      <div class="menu-block-primary">
+        <div class="menu-padding">
+          <div class="menu-link-container-2"><a href="#" class="menu-link-2">Home</a>
+            <p class="paragraph-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+            <div class="fontawesome-close-menu-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. div for the menu button in the top right -->
+      <div class="menu-button-2 w-clearfix">
+        <div data-w-id="d6423925-a05c-97f6-5547-12e94beeba4a" class="line-1-2"></div>
+        <div data-w-id="d6423925-a05c-97f6-5547-12e94beeba4b" class="line-2-2"></div>
+        <div data-w-id="d6423925-a05c-97f6-5547-12e94beeba4c" class="line-3-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+        <div class="menu-block-2"></div>
+      </div>
+
+    <!-- 8. div for the dropdown menu scroller -->
+    <!-- <div class="slide-nav w-slider-nav"></div> -->
 
         
         

@@ -135,29 +135,54 @@
               <!-- <div id="map" class="map"> -->
               <div id="map"> 
 
-                <!-- Top Right Legend -->
-              <div id='legend-right'>
-                <div class='session1'>
-                  <p>Nature rating</p>
-                    <div class='row colors'> </div>
-                    <div class='row labels'>
-                        <div class='label'>1</div>
-                        <div class='label'>2</div>
-                        <div class='label'>3</div>
-                        <div class='label'>4</div>
-                        <div class='label'>5</div>
+                <!-- Top left Legend -->
+                <div id='legend-right'>
+                  
+                  <!-- nature rating div -->
+                  <div class='session'>
+                    <p>Nature rating</p>
+                      <div class='row colors'> </div>
+                      <div class='row labels'>
+                          <div class='label'>1</div>
+                          <div class='label'>2</div>
+                          <div class='label'>3</div>
+                          <div class='label'>4</div>
+                          <div class='label'>5</div>
+                        </div>
+                  </div>
+
+                  <!-- interactive button div -->
+                  <div class='session'>
+                    <p>Nature Filter</p>
+                    <div class='row' id='filters'>
+                      <div class='label'>
+                        <input id='all' type='radio' name='toggle' value='all' checked='checked'>
+                        <label for='all'>All</label>
                       </div>
-               </div>
+                      <div class='label'>
+                        <input id='park' type='radio' name='toggle' value='park'>
+                        <label for='park'>Park</label>
+                      </div>
+                      <div class='label'>
+                        <input id='forest' type='radio' name='toggle' value='forest'>
+                        <label for='forest'>Forest</label>
+                      </div>
+                      <div class='label'>
+                        <input id='allotments' type='radio' name='toggle' value='allotments'>
+                        <label for='allotments'>Allotments</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- End of Legend -->
 
               </div>
-
-
-              </div>
+              <!-- End of mapbox div for the map -->
 
               <!-- button for fly -->
               <br />
               <button id="fly">Fly</button>
-
 
               <!-- the javascript for mapbox -->
               <script>
@@ -165,7 +190,7 @@
 
                 var map = new mapboxgl.Map({
                     container: 'map', // container id
-                    style: 'mapbox://styles/vishalkumarlondon/cjqz4sa2e0pfx2ro13tfobj64', // stylesheet location
+                    style: 'mapbox://styles/vishalkumarlondon/ck95pplbp297q1inv9j8s95ki', // stylesheet location
                     center: [-0.1, 51.5074], // starting position [lng, lat]
                     zoom: 9 // starting zoom
                   });
@@ -199,7 +224,7 @@
                           5,
                           '#2e9410'
                         ],
-                        'fill-opacity': 0.8,
+                        'fill-opacity': 1,
                         'fill-outline-color': 'rgba(155, 100, 75, 1)'
                       }
                     });
@@ -214,7 +239,7 @@
                       },
                       paint: {
                         'fill-color': 'rgba(0, 0, 0, 0)',
-                        'fill-outline-color': 'rgba(255, 255, 255, 1)'
+                        'fill-outline-color': 'rgba(255, 255, 255, 0.5)'
                       }
                     });
 
@@ -228,10 +253,32 @@
                         data: 'http://cultureincities.com/nature/data/london_borough.geojson'
                       },
                       paint: {
-                        'line-color': 'rgba(255, 255, 255, 1)',
+                        'line-color': 'rgba(255, 255, 255, 0.5)',
                         'line-width': 1
                       }
                     });
+
+
+                    document.getElementById('filters').addEventListener('change', function(e) {
+                        var n_type = e.target.value;
+                        // update the map filter
+                        if (n_type === 'all') {
+                          filterNature = ['!=', ['string', ['get', 'fclass']], 'placeholder'];
+
+                        } else if (n_type === 'park') {
+                          filterNature = ['match', ['get', 'fclass'], ['park'], true, false];
+
+                        } else if (n_type === 'forest') {
+                          filterNature = ['match', ['get', 'fclass'], ['forest'], true, false];
+
+                        } else if (n_type === 'allotments') {
+                          filterNature = ['match', ['get', 'fclass'], ['allotments'], true, false];
+                          
+                        } else {
+                          console.log('error');
+                        }
+                        map.setFilter('nature-layer', ['all', filterNature]);
+                      });
 
                 
                     map.moveLayer('nature-layer', 'london-boundaries-fill');
@@ -345,26 +392,6 @@
                       map.flyTo(chapters[chapterName]);
                   });
 
-
-                  // var geocoder = new MapboxGeocoder({
-                  //   accessToken: mapboxgl.accessToken,
-                  //   flyTo: {
-                  //     bearing: 0,
-                  //     // These options control the flight curve, making it move
-                  //     // slowly and zoom out almost completely before starting
-                  //     // to pan.
-                  //     speed: 0.5, // make the flying slow
-                  //     curve: 1, // change the speed at which it zooms out
-                  //     // This can be any easing function: it takes a number between
-                  //     // 0 and 1 and returns another number between 0 and 1.
-                  //     easing: function(t) {
-                  //       return t;
-                  //       }
-                  //   },
-                  //   mapboxgl: mapboxgl
-                  //   });
-                  // map.addControl(geocoder);
-                  
               
               </script>
             <!-- </div> -->

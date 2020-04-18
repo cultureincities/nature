@@ -155,19 +155,19 @@
                   <div class='session'>
                     <p>Nature Filter</p>
                     <div class='row' id='filters'>
-                      <div class='label'>
+                      <div class='label2'>
                         <input id='all' type='radio' name='toggle' value='all' checked='checked'>
                         <label for='all'>All</label>
                       </div>
-                      <div class='label'>
+                      <div class='label2'>
                         <input id='park' type='radio' name='toggle' value='park'>
                         <label for='park'>Park</label>
                       </div>
-                      <div class='label'>
+                      <div class='label2'>
                         <input id='forest' type='radio' name='toggle' value='forest'>
                         <label for='forest'>Forest</label>
                       </div>
-                      <div class='label'>
+                      <div class='label2'>
                         <input id='allotments' type='radio' name='toggle' value='allotments'>
                         <label for='allotments'>Allotments</label>
                       </div>
@@ -304,25 +304,6 @@
                       });
 
 
-                // // When a click event occurs on a feature in the nature layer, open a popup at the
-                // // location of the click, with description HTML from its properties.
-                // map.on('click', 'london-boundaries-fill', function(e) {
-                //   new mapboxgl.Popup()
-                //   .setLngLat(e.lngLat)
-                //   .setHTML(e.features[0].properties.NAME)
-                //   .addTo(map);
-                // });
-              
-                // // Change the cursor to a pointer when the mouse is over the nature layer.
-                // map.on('mouseenter', 'london-boundaries-fill', function() {
-                //   map.getCanvas().style.cursor = 'pointer';
-                // });
-                
-                // // Change it back to a pointer when it leaves.
-                // map.on('mouseleave', 'london-boundaries-fill', function() {
-                //     map.getCanvas().style.cursor = '';
-                //   });
-
                 });   
 
                 // Areas of London to Fly to
@@ -371,10 +352,10 @@
                   pitch: 40
                   },
                   'charing-cross': {
-                  bearing: 90,
+                  bearing: 0,
                   center: [-0.12416858, 51.50779757],
-                  zoom: 14.3,
-                  pitch: 20
+                  zoom: 12.1,
+                  pitch: 0
                   }
                 };
 
@@ -419,7 +400,6 @@
       </div> -->
 
 
-
       <!-- 4. ruler line on the left -->
       <div class="rule"></div>
 
@@ -433,12 +413,14 @@
       <!-- 6. div for the dropdown menu scroller -->
       <div class="menu-block-primary">
         <div class="menu-padding">
-          <div class="menu-link-container-2"><a href="#" class="menu-link-2">Home</a>
-            <p class="paragraph-2">London National Park City! Discover the various green infrastructure of London. </p>
-            <p class="paragraph-2">Green infrastructure is a term being used by the Greater London Authority (GLA) and the Mayor of London to describe London’s network of parks, green spaces, gardens, woodlands, rivers and wetlands (as well as features such as street trees and green roofs). Green infrastructure are spaces for people to relax, exercise, play, and enjoy London’s natural heritage and culture. They help to promote healthier lifestyle, improve air quality, reduce impacts of climate change and improve nature biodiversity.</p>
-            <p class="paragraph-2">The map shows more than 2500 green spaces. These parks and gardens have been selected as they have been rated by users on Google Maps. </p>
-            <p class="paragraph-2">The map default view shows you most of all the green spaces in London. Each space is coloured according to its rating on Google Review (low rating coloured in pink, high rating coloured in green). The button on the left panel allow to view only specific green spaces. Here parks, forests and allotment gardens can be visualise.</p>
-            <p class="paragraph-2">This project has been made by Vishal Kumar and Aude Vuilliomenet as part of the CASA students ”Lockdown Map Project”. Vishal Kumar is a Cultural Data Scientist at The Bartlett’s Centre for Advanced Spatial Analysis (CASA) at UCL who researches the economic and social value of culture in cities. Aude is an aspiring PhD Student in Urban Data Science at The Bartletts, CASA at UCL to research how the benefits of connected gardens and parks to improve cities’ biodiversity and resilience.</p>
+          <div class="menu-link-container-2"><a href="#" class="menu-link-2"></a>
+            <p class="paragraph">London National Park City! Discover the various green infrastructure of London. </p>
+            <br>
+            <p class="paragraph">Green infrastructure is a term being used by the Greater London Authority (GLA) and the Mayor of London to describe London’s network of parks, green spaces, gardens, woodlands, rivers and wetlands (as well as features such as street trees and green roofs). Green infrastructure are spaces for people to relax, exercise, play, and enjoy London’s natural heritage and culture. They help to promote healthier lifestyle, improve air quality, reduce impacts of climate change and improve nature biodiversity.</p>
+            <br>
+            <p class="paragraph">The map shows more than 2500 green spaces. These parks and gardens have been selected as they have been rated by users on Google Maps. The map's default view shows you most of all the green spaces in London. Each space is coloured according to its rating on Google Review (low rating coloured in pink, high rating coloured in green). The button on the left panel allows you  to view only specific green spaces. Here parks, forests and allotment gardens can be filtered.</p>
+            <br>
+            <p class="paragraph">This project has been made by Vishal Kumar and Aude Vuilliomenet as part of the CASA students ”Lockdown Map Project”. Vishal Kumar is a Cultural Data Scientist at The Bartlett Centre for Advanced Spatial Analysis (CASA) at UCL who researches the economic and social value of art and culture in cities. Aude is an aspiring PhD Student in Urban Data Science at The Bartlett, CASA at UCL to research how the benefits of connected gardens and parks to improve cities’ biodiversity and resilience.</p>
             <div class="fontawesome-close-menu-2"></div>
           </div>
         </div>
@@ -467,7 +449,6 @@
         
       </div>
       <!-- ---------- END of hero slider container ----------  -->
-
 
 
 

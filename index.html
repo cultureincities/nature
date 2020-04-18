@@ -198,6 +198,7 @@
                   });
                 });   
 
+                // Areas of London to Fly to
                 var chapters = {
                   'baker': {
                   bearing: 27,
@@ -250,7 +251,7 @@
                   }
                 };
 
-
+                // Javascript function when clicked go to area
                 document.getElementById('fly').addEventListener('click', function() {
                   // cities.features.forEach(function(city, index) {
                   //   setTimeout(function() {
@@ -265,25 +266,24 @@
                   });
 
 
-
-                  var geocoder = new MapboxGeocoder({
-                    accessToken: mapboxgl.accessToken,
-                    flyTo: {
-                      bearing: 0,
-                      // These options control the flight curve, making it move
-                      // slowly and zoom out almost completely before starting
-                      // to pan.
-                      speed: 0.5, // make the flying slow
-                      curve: 1, // change the speed at which it zooms out
-                      // This can be any easing function: it takes a number between
-                      // 0 and 1 and returns another number between 0 and 1.
-                      easing: function(t) {
-                        return t;
-                        }
-                    },
-                    mapboxgl: mapboxgl
-                    });
-                  map.addControl(geocoder);
+                  // var geocoder = new MapboxGeocoder({
+                  //   accessToken: mapboxgl.accessToken,
+                  //   flyTo: {
+                  //     bearing: 0,
+                  //     // These options control the flight curve, making it move
+                  //     // slowly and zoom out almost completely before starting
+                  //     // to pan.
+                  //     speed: 0.5, // make the flying slow
+                  //     curve: 1, // change the speed at which it zooms out
+                  //     // This can be any easing function: it takes a number between
+                  //     // 0 and 1 and returns another number between 0 and 1.
+                  //     easing: function(t) {
+                  //       return t;
+                  //       }
+                  //   },
+                  //   mapboxgl: mapboxgl
+                  //   });
+                  // map.addControl(geocoder);
                   
               
               </script>

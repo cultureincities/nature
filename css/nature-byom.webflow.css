@@ -383,6 +383,12 @@ p {
     text-align: center;
   }
 
+#fly {
+  width: 50px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 #legend-right {
   position: absolute;
   width: 250px;
@@ -1496,6 +1502,12 @@ p {
     font-size: 10px;
     display: inline-block;
     text-align: center;
+  }
+
+  #fly {
+    width: 50px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
   }
   
   #legend-right {

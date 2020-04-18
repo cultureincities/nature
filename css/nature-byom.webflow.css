@@ -852,7 +852,7 @@ p {
   border-width: 2px;
   border-color: #1c3a6b;
   border-radius: 20px;
-  background-image: linear-gradient(315deg, #fce300, #ff8200);
+  background-image: linear-gradient(315deg, #f3cfb3, #f3cfb3);
 }
 
 .menu-link-container-2 {
@@ -883,7 +883,7 @@ p {
   border-width: 2px;
   border-color: #1c3a6b;
   border-radius: 20px;
-  background-image: linear-gradient(315deg, #fce300, #ff8200);
+  background-image: linear-gradient(315deg, #f3cfb3, #f3cfb3);
 }
 
 .menu-link {
@@ -1310,7 +1310,7 @@ p {
   .paragraph {
     font-size: 8px;
     text-align: left;
-    line-height: 16px;
+    line-height: 12px;
   }
   .h3 {
     font-size: 30px;

@@ -43,16 +43,6 @@
                 height: 100%;
                }
 
-        #legend-right {
-            position: relative;
-            width: 200px;
-            height: 50px;
-            margin: 10px;
-            padding: 10px;
-            background-color:rgba(255, 255, 255, 0.8);
-            z-index: 10000;
-            border-radius: 2.5px;
-          }
     </style>
 </head>
 
@@ -133,22 +123,6 @@
             <div class="map">
             <!-- <div class="w-embed w-script"> -->
 
-              <!-- Top Right Legend -->
-              <div class='legend-right'>
-                <div class='session1'>
-                  <p>Nature rating</p>
-                    <div class='row colors'> </div>
-                    <div class='row labels'>
-                        <div class='label'>£20</div>
-                        <div class='label'>£50</div>
-                        <div class='label'>£100</div>
-                        <div class='label'>£150</div>
-                        <div class='label'>£200</div>
-                        <div class='label'>£250+</div>
-                      </div>
-               </div>
-              </div>
-
               <!-- style the pop up -->
               <style>
                 .mapboxgl-popup {
@@ -159,7 +133,26 @@
 
               <!-- the mapbox div for the map -->
               <!-- <div id="map" class="map"> -->
-              <div id="map"> </div>
+              <div id="map"> 
+
+                <!-- Top Right Legend -->
+              <div id='legend-right'>
+                <div class='session1'>
+                  <p>Nature rating</p>
+                    <div class='row colors'> </div>
+                    <div class='row labels'>
+                        <div class='label'>1</div>
+                        <div class='label'>2</div>
+                        <div class='label'>3</div>
+                        <div class='label'>4</div>
+                        <div class='label'>5</div>
+                      </div>
+               </div>
+
+              </div>
+
+
+              </div>
 
               <!-- button for fly -->
               <br />
@@ -206,42 +199,82 @@
                           5,
                           '#2e9410'
                         ],
-                        'fill-opacity': 0.8
+                        'fill-opacity': 0.8,
+                        'fill-outline-color': 'rgba(155, 100, 75, 1)'
                       }
                     });
 
-                    //function to add shapefile layer of Boroughs of London
+                    //add fill layer of London borough shapes
                     map.addLayer({
-                      id: 'london-boundaries',
+                      id: 'london-boundaries-fill',
                       type: 'fill',
                       source: {
                         type: 'geojson',
                         data: 'http://cultureincities.com/nature/data/london_borough.geojson'
                       },
                       paint: {
-                        // 'fill-color': 'rgba(31, 100, 100, 1)',
+                        'fill-color': 'rgba(0, 0, 0, 0)',
                         'fill-outline-color': 'rgba(255, 255, 255, 1)'
                       }
                     });
-                    
-                // When a click event occurs on a feature in the nature layer, open a popup at the
-                // location of the click, with description HTML from its properties.
-                map.on('click', 'nature-layer', function(e) {
-                  new mapboxgl.Popup()
-                  .setLngLat(e.lngLat)
-                  .setHTML(e.features[0].properties.name + ", " + e.features[0].properties.rating)
-                  .addTo(map);
-                });
-              
-                // Change the cursor to a pointer when the mouse is over the nature layer.
-                map.on('mouseenter', 'nature-layer', function() {
-                  map.getCanvas().style.cursor = 'pointer';
-                });
+
+                    //add fill layer of London borough shapes
+                    //https://stackoverflow.com/questions/50351902/in-a-mapbox-gl-js-layer-of-type-fill-can-we-control-the-stroke-thickness/50372832#50372832
+                    map.addLayer({
+                      id: 'london-boundaries-line',
+                      type: 'line',
+                      source: {
+                        type: 'geojson',
+                        data: 'http://cultureincities.com/nature/data/london_borough.geojson'
+                      },
+                      paint: {
+                        'line-color': 'rgba(255, 255, 255, 1)',
+                        'line-width': 1
+                      }
+                    });
+
                 
-                // Change it back to a pointer when it leaves.
-                map.on('mouseleave', 'nature-layer', function() {
-                    map.getCanvas().style.cursor = '';
-                  });
+                    map.moveLayer('nature-layer', 'london-boundaries-fill');
+                    map.moveLayer('london-boundaries-fill', 'london-boundaries-line');
+                        
+                    // When a click event occurs on a feature in the nature layer, open a popup at the
+                    // location of the click, with description HTML from its properties.
+                    map.on('click', 'nature-layer', function(e) {
+                      new mapboxgl.Popup()
+                      .setLngLat(e.lngLat)
+                      .setHTML(e.features[0].properties.name + ", " + e.features[0].properties.rating)
+                      .addTo(map);
+                    });
+                  
+                    // Change the cursor to a pointer when the mouse is over the nature layer.
+                    map.on('mouseenter', 'nature-layer', function() {
+                      map.getCanvas().style.cursor = 'pointer';
+                    });
+                    
+                    // Change it back to a pointer when it leaves.
+                    map.on('mouseleave', 'nature-layer', function() {
+                        map.getCanvas().style.cursor = '';
+                      });
+
+
+                // // When a click event occurs on a feature in the nature layer, open a popup at the
+                // // location of the click, with description HTML from its properties.
+                // map.on('click', 'london-boundaries-fill', function(e) {
+                //   new mapboxgl.Popup()
+                //   .setLngLat(e.lngLat)
+                //   .setHTML(e.features[0].properties.NAME)
+                //   .addTo(map);
+                // });
+              
+                // // Change the cursor to a pointer when the mouse is over the nature layer.
+                // map.on('mouseenter', 'london-boundaries-fill', function() {
+                //   map.getCanvas().style.cursor = 'pointer';
+                // });
+                
+                // // Change it back to a pointer when it leaves.
+                // map.on('mouseleave', 'london-boundaries-fill', function() {
+                //     map.getCanvas().style.cursor = '';
+                //   });
 
                 });   
 
@@ -364,11 +397,11 @@
       <div class="rule"></div>
 
       <!-- 5. div for the scroller -->
-      <div class="scroll-indicator-container">
+      <!-- <div class="scroll-indicator-container">
         <a href="#" class="scroll-indicator w-inline-block">
           <div style="-webkit-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0PX, -5PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="scroll"></div>
         </a>
-      </div>
+      </div> -->
 
       <!-- 6. div for the dropdown menu scroller -->
       <div class="menu-block-primary">

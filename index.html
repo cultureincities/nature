@@ -41,16 +41,18 @@
                 padding: 0;
                 width: 100%;
                 height: 100%;
-                /* position: absolute; 
-                top: 25%;
-                left: 25%;
-                width: 50%;
-                height: 50%;
-                margin-top: 2%; 
-                width: 70%; 
-                height: 70%;
-                vertical-align: middle; */
                }
+
+        #legend-right {
+            position: relative;
+            width: 200px;
+            height: 50px;
+            margin: 10px;
+            padding: 10px;
+            background-color:rgba(255, 255, 255, 0.8);
+            z-index: 10000;
+            border-radius: 2.5px;
+          }
     </style>
 </head>
 
@@ -131,6 +133,22 @@
             <div class="map">
             <!-- <div class="w-embed w-script"> -->
 
+              <!-- Top Right Legend -->
+              <div class='legend-right'>
+                <div class='session1'>
+                  <p>Nature rating</p>
+                    <div class='row colors'> </div>
+                    <div class='row labels'>
+                        <div class='label'>£20</div>
+                        <div class='label'>£50</div>
+                        <div class='label'>£100</div>
+                        <div class='label'>£150</div>
+                        <div class='label'>£200</div>
+                        <div class='label'>£250+</div>
+                      </div>
+               </div>
+              </div>
+
               <!-- style the pop up -->
               <style>
                 .mapboxgl-popup {
@@ -143,7 +161,6 @@
               <!-- <div id="map" class="map"> -->
               <div id="map"> </div>
 
-              
               <!-- button for fly -->
               <br />
               <button id="fly">Fly</button>
@@ -160,30 +177,59 @@
                     zoom: 9 // starting zoom
                   });
 
+                //main function to load the map
                 map.on('load', function() {
-                  // Add a source for the state polygons.
-                  map.addSource('nature', {
-                    'type': 'geojson',
-                    'data': 'http://cultureincities.com/nature/data/osm_london.geojson'
-                  });
-                  
-                // Add a layer showing the state polygons.
-                map.addLayer({
-                  'id': 'nature-layer',
-                  'type': 'fill',
-                  'source': 'nature',
-                  'paint': {
-                  'fill-color': 'rgba(31, 100, 100, 1)',
-                  'fill-outline-color': 'rgba(144, 238, 144, 1)'
-                  } 
-                });
+
+                  //function to add shapefile layer of nature in London
+                  map.addLayer({
+                      id: 'nature-layer',
+                      type: 'fill',
+                      source: {
+                        type: 'geojson',
+                        data: 'http://cultureincities.com/nature/data/osm_london_clean.geojson'
+                      },
+                      paint: {
+                        'fill-color': [
+                          'interpolate',
+                          ['linear'],
+                          ['number', ['get', 'rating']],
+                          1,
+                          '#fae9fc',
+                          2,
+                          '#e5b8f4',
+                          3,
+                          '#f384fb',
+                          4,
+                          '#b6f5a3',
+                          4.5,
+                          '#46e515',
+                          5,
+                          '#2e9410'
+                        ],
+                        'fill-opacity': 0.8
+                      }
+                    });
+
+                    //function to add shapefile layer of Boroughs of London
+                    map.addLayer({
+                      id: 'london-boundaries',
+                      type: 'fill',
+                      source: {
+                        type: 'geojson',
+                        data: 'http://cultureincities.com/nature/data/london_borough.geojson'
+                      },
+                      paint: {
+                        // 'fill-color': 'rgba(31, 100, 100, 1)',
+                        'fill-outline-color': 'rgba(255, 255, 255, 1)'
+                      }
+                    });
                     
                 // When a click event occurs on a feature in the nature layer, open a popup at the
                 // location of the click, with description HTML from its properties.
                 map.on('click', 'nature-layer', function(e) {
                   new mapboxgl.Popup()
                   .setLngLat(e.lngLat)
-                  .setHTML(e.features[0].properties.name)
+                  .setHTML(e.features[0].properties.name + ", " + e.features[0].properties.rating)
                   .addTo(map);
                 });
               
@@ -196,6 +242,7 @@
                 map.on('mouseleave', 'nature-layer', function() {
                     map.getCanvas().style.cursor = '';
                   });
+
                 });   
 
                 // Areas of London to Fly to

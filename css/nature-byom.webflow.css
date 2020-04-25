@@ -391,10 +391,15 @@ p {
 
 #legend-right {
   position: absolute;
-  width: 250px;
+  width: auto;
   margin: 10px;
   padding: 20px 10px;
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  border: 1px solid #ff8200;
+  border-radius: 10px;
+  /* background-color: #f3cfb3; */
+  background-color: whitesmoke;
+    
 /*   
   position: absolute;
   left: 0px;
@@ -928,7 +933,7 @@ p {
   -webkit-transition: color 500ms ease;
   transition: color 500ms ease;
   font-family: Fontawesome, sans-serif;
-  color: #de5b91;
+  color: #ff8200;
   font-size: 40px;
   line-height: 100%;
   font-weight: 900;
@@ -1070,7 +1075,7 @@ p {
   -webkit-transition: color 500ms ease;
   transition: color 500ms ease;
   font-family: Fontawesome, sans-serif;
-  color: #de5b91;
+  color: #ff8200;
   font-size: 40px;
   line-height: 100%;
   font-weight: 900;
@@ -1515,7 +1520,11 @@ p {
     width: auto;
     margin: 10px;
     padding: 20px 10px;
-    background-color: rgba(255, 255, 255, 0.8);
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    border: 1px solid #ff8200;
+    border-radius: 10px;
+    /* background-color: #f3cfb3; */
+    background-color: whitesmoke;
   /*   
     position: relative;
     right: 0px;

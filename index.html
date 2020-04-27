@@ -297,7 +297,7 @@
                     map.on('click', 'nature-layer', function(e) {
                       new mapboxgl.Popup()
                       .setLngLat(e.lngLat)
-                      .setHTML(e.features[0].properties.name + ", " + e.features[0].properties.rating)
+                      .setHTML(e.features[0].properties.name + ", Rating: " + e.features[0].properties.rating + ", Nb. Reviews: " + e.features[0].properties.totuser_rating)
                       .addTo(map);
                     });
                   
